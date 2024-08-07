@@ -1,0 +1,1 @@
+# michaelquartey-sonographydevice-ai
