@@ -1,0 +1,6 @@
+path: C:/Users/eSpark/Documents/Uterine_Fibroids/training
+train: images/
+val: images/
+
+names:
+  0: Uterine_Fibroid
