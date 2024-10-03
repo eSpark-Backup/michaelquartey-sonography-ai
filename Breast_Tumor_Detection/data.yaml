@@ -1,0 +1,9 @@
+# train: ../train/images
+# val: ../valid/images
+# test: ../test/images
+path: C:\Users\mahas\Documents\GitHub\michaelquartey-sonography-ai\Breast_Tumor\train
+train: images/
+val: images/
+
+nc: 2
+names: ['benign_tumor', 'malignant_tumor']

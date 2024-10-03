@@ -1,0 +1,6 @@
+path: /content/drive/MyDrive/Breast_Tumor/
+train: train/
+val: val/
+
+nc: 2
+names: ['benign_tumor', 'malignant_tumor']
