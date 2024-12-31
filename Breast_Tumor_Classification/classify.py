@@ -1,20 +1,30 @@
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
 import numpy as np
+from tensorflow.keras.preprocessing import image
 
-model = load_model('classification_model_3.h5')
+model = load_model('model.keras')
 
-img_path = 'C:/Users/mahas/Documents/GitHub/michaelquartey-sonography-ai/Breast_Tumor_Classification/dataset/benign/benign (106).png'
-img = image.load_img(img_path, target_size=(224, 224))  # Resizing the image
-img_array = image.img_to_array(img)  # Converting image to array
-img_array = np.expand_dims(img_array, axis=0)  # Adding batch dimension
-img_array /= 255.0  # Normalizing pixel values
+def preprocess_image(image_path, target_size=(256, 256)):
+    img = image.load_img(image_path, target_size=target_size)
+    img_array = image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = img_array / 255.0
+    return img_array
 
-predictions = model.predict(img_array, batch_size=1)
-predicted_class = np.argmax(predictions, axis=1)
+test_image_path = 'Dataset_BUSI_with_GT/normal/normal (1).png'
+preprocessed_image = preprocess_image(test_image_path)
 
-class_labels = {0:'benign', 1:'malignant', 2:'normal'}
+predictions = model.predict(preprocessed_image)
 
-print(predictions)
-predicted_label = class_labels[predicted_class[0]]
-print(f"The predicted class is: {predicted_label}")
+predicted_class_index = np.argmax(predictions, axis=1)[0]
+
+# class_indices = train_generator.class_indices
+class_labels = {
+    0: 'Benign',
+    1: 'Malignant',
+    2: 'Normal',
+}
+predicted_class_label = class_labels[predicted_class_index]
+
+print(f"Predicted Class: {predicted_class_label}")
+print(f"Prediction Confidence: {predictions[0][predicted_class_index]:.2f}")
